@@ -88,4 +88,19 @@ defmodule PlateSlateWeb.Schema.Query.MenuItemsTest do
       }
     }
   end
+
+  @query """
+  query ($order: SortOrder!){
+    menuItems(order: $order) {
+      name
+    }
+  }
+  """
+  @variables %{"order" => "DESC"}
+  test "menuItems field returns items descending using literals" do
+    response = get(build_conn(), "/api", query: @query, variables: @variables)
+    assert %{
+      "data" => %{"menuItems" => [%{"name" => "Water"} | _]}
+    } = json_response(response, 200)
+  end
 end
