@@ -22,10 +22,12 @@ defmodule PlateSlateWeb.Schema do
 
   scalar :date do
     parse fn input ->
-      case Date.from_iso8601(input.value) do
-        {:ok, date} -> {:ok, date}
-        _ -> :error
-      end
+      with %Absinthe.Blueprint.Input.String{value: value} <- input,
+        {:ok, date} <- Date.from_iso8601(value) do
+          {:ok, date}
+        else
+          _ -> :error
+        end
     end
 
     serialize fn date ->
