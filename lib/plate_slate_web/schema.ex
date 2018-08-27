@@ -19,6 +19,14 @@ defmodule PlateSlateWeb.Schema do
     end
   end
 
+  mutation do
+
+      field :create_menu_item, :menu_item do
+        arg :input, non_null(:menu_item_input)
+        resolve &Resolvers.Menu.create_item/3
+      end
+  end
+
   scalar :date do
     parse fn input ->
       with %Absinthe.Blueprint.Input.String{value: value} <- input,
@@ -32,6 +40,16 @@ defmodule PlateSlateWeb.Schema do
     serialize fn date ->
       Date.to_iso8601(date)
     end
+  end
+
+  scalar :decimal do
+    parse fn
+      %{value: value}, _ ->
+        Decimal.parse(value)
+      _, _ ->
+        :error
+    end
+    serialize &to_string/1
   end
 
   enum :sort_order do
