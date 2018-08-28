@@ -6,7 +6,6 @@ defmodule PlateSlateWeb.Schema do
   import_types __MODULE__.MenuTypes
 
   query do
-    @desc "The list of available items on the menu"
     field :menu_items, list_of(:menu_item) do
       arg :filter, :menu_item_filter
       arg :order, type: :sort_order, default_value: :asc
@@ -20,21 +19,26 @@ defmodule PlateSlateWeb.Schema do
   end
 
   mutation do
+    field :create_menu_item, :menu_item_result do
+      arg :input, non_null(:menu_item_input)
+      resolve &Resolvers.Menu.create_item/3
+    end
+  end
 
-      field :create_menu_item, :menu_item do
-        arg :input, non_null(:menu_item_input)
-        resolve &Resolvers.Menu.create_item/3
-      end
+  @desc "An error encountered trying to persist input"
+  object :input_error do
+    field :key, non_null(:string)
+    field :message, non_null(:string)
   end
 
   scalar :date do
     parse fn input ->
       with %Absinthe.Blueprint.Input.String{value: value} <- input,
-        {:ok, date} <- Date.from_iso8601(value) do
-          {:ok, date}
-        else
-          _ -> :error
-        end
+      {:ok, date} <- Date.from_iso8601(value) do
+        {:ok, date}
+      else
+        _ -> :error
+      end
     end
 
     serialize fn date ->
