@@ -13,7 +13,7 @@ defmodule PlateSlateWeb.Schema.MenuTypes do
     field :name, :string
     field :description, :string
     field :items, list_of(:menu_item) do
-      resolve(&Resolvers.Menu.menu_items/3)
+      resolve &Resolvers.Menu.items_for_category/3
     end
   end
 
@@ -31,6 +31,7 @@ defmodule PlateSlateWeb.Schema.MenuTypes do
 
   @desc "Filtering options for the menu item list"
   input_object :menu_item_filter do
+
     @desc "Matching a name"
     field :name, :string
 
@@ -51,10 +52,13 @@ defmodule PlateSlateWeb.Schema.MenuTypes do
 
     @desc "Added to the menu after this date"
     field :added_after, :date
+
   end
 
   object :menu_item do
+
     interfaces [:search_result]
+
     field :id, :id
     field :name, :string
     field :description, :string
@@ -68,4 +72,6 @@ defmodule PlateSlateWeb.Schema.MenuTypes do
     field :price, non_null(:decimal)
     field :category_id, non_null(:id)
   end
+
+
 end

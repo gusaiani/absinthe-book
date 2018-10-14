@@ -15,7 +15,6 @@ defmodule PlateSlate.Ordering do
 
       iex> list_orders()
       [%Order{}, ...]
-
   """
   def list_orders do
     Repo.all(Order)
@@ -31,14 +30,14 @@ defmodule PlateSlate.Ordering do
       iex> get_order!(123)
       %Order{}
 
-      iex> get_order!(456)
+      iex> get_order(456)
       ** (Ecto.NoResultsError)
 
   """
-  def get_order!(id), do: Repo.get!(Order, id)
+  def get_order!(id), do: Repo.get(Order, id)
 
   @doc """
-  Creates a order.
+  Creates an order.
 
   ## Examples
 
@@ -65,7 +64,7 @@ defmodule PlateSlate.Ordering do
   end
 
   @doc """
-  Updates a order.
+  Updates an order.
 
   ## Examples
 
@@ -73,7 +72,7 @@ defmodule PlateSlate.Ordering do
       {:ok, %Order{}}
 
       iex> update_order(order, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
+      {:error, %Ecto.Changeset}
 
   """
   def update_order(%Order{} = order, attrs) do
@@ -83,9 +82,9 @@ defmodule PlateSlate.Ordering do
   end
 
   @doc """
-  Deletes a Order.
+  Deletes an order.
 
-  ## Examples
+  ## Examples:
 
       iex> delete_order(order)
       {:ok, %Order{}}
@@ -94,7 +93,7 @@ defmodule PlateSlate.Ordering do
       {:error, %Ecto.Changeset{}}
 
   """
-  def delete_order(%Order{} = order) do
+  def delete_order(order) do
     Repo.delete(order)
   end
 
@@ -104,7 +103,7 @@ defmodule PlateSlate.Ordering do
   ## Examples
 
       iex> change_order(order)
-      %Ecto.Changeset{source: %Order{}}
+      %Ecto.Changeset(source: %Order{})
 
   """
   def change_order(%Order{} = order) do
