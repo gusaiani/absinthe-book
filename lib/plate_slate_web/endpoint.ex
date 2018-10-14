@@ -55,4 +55,6 @@ defmodule PlateSlateWeb.Endpoint do
       {:ok, config}
     end
   end
+
+  # Rest of file
 end

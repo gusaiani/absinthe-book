@@ -24,4 +24,5 @@ defmodule PlateSlateWeb.Router do
       interface: :simple,
       socket: PlateSlateWeb.UserSocket
   end
+
 end
