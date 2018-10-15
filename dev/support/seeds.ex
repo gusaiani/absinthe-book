@@ -1,11 +1,3 @@
-#---
-# Excerpted from "Craft GraphQL APIs in Elixir with Absinthe",
-# published by The Pragmatic Bookshelf.
-# Copyrights apply to this code. It may not be used to create training material,
-# courses, books, articles, and the like. Contact us if you are in doubt.
-# We make no guarantees that this code is fit for any purpose.
-# Visit http://www.pragmaticprogrammer.com/titles/wwgraphql for more book information.
-#---
 defmodule PlateSlate.Seeds do
 
   def run() do
@@ -46,7 +38,7 @@ defmodule PlateSlate.Seeds do
       |> Repo.insert!
 
     _bahn_mi =
-      %Menu.Item{name: "Bánh mì", price: 4.50, category: sandwiches}
+      %Menu.Item{name: "BÃ¡nh mÃ¬", price: 4.50, category: sandwiches}
       |> Repo.insert!
 
     _vada_pav =
@@ -70,6 +62,17 @@ defmodule PlateSlate.Seeds do
     _pasta_salad =
       %Menu.Item{name: "Pasta Salad", price: 2.50, category: sides}
       |> Repo.insert!
+
+    category = Repo.get_by(Menu.Category, name: "Sides")
+    %Menu.Item{
+      name: "Thai Salad",
+      price: 3.50,
+      category: category,
+      allergy_info: [
+        %{"allergen" => "Peanuts", "severity" => "Contains"},
+        %{"allergen" => "Shell Fish", "severity" => "Shared Equipment"},
+      ]
+    } |> Repo.insert!
 
     #
     # BEVERAGES
