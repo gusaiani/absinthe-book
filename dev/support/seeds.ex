@@ -38,7 +38,7 @@ defmodule PlateSlate.Seeds do
       |> Repo.insert!
 
     _bahn_mi =
-      %Menu.Item{name: "BÃ¡nh mÃ¬", price: 4.50, category: sandwiches}
+      %Menu.Item{name: "Bánh mì", price: 4.50, category: sandwiches}
       |> Repo.insert!
 
     _vada_pav =

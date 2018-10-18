@@ -18,6 +18,7 @@ defmodule PlateSlateWeb.Schema do
 
   import_types __MODULE__.MenuTypes
   import_types __MODULE__.OrderingTypes
+  import_types __MODULE__.AccountsTypes
 
   query do
     field :menu_items, list_of(:menu_item) do
